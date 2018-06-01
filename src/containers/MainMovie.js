@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
+import Same from "./Same";
 
 class MainMovie extends Component {
     constructor(props) {
@@ -17,6 +17,7 @@ class MainMovie extends Component {
             tagline: ""
         };
         this.getMovieDetails = this.getMovieDetails.bind(this);
+        this.changeMovie = this.changeMovie.bind(this);
     }
 
     componentDidMount() {
@@ -24,6 +25,9 @@ class MainMovie extends Component {
         this.setState({ movieId: this.props.movieId });
     }
 
+    changeMovie = id => {
+        this.props.dispatch({ type: "CHANGE_MOVIE", movieId: id });
+    };
     getMovieDetails = async id => {
         let res = await axios.get(`${this.props.link}${id}${this.props.stash}`);
         let {
@@ -45,7 +49,7 @@ class MainMovie extends Component {
     };
 
     componentDidUpdate() {
-        if (this.state.movieId != this.props.movieId) {
+        if (this.state.movieId !== this.props.movieId) {
             this.getMovieDetails(this.props.movieId);
             this.setState({ movieId: this.props.movieId });
         }
@@ -63,15 +67,18 @@ class MainMovie extends Component {
         let imdb_path = `https://www.imdb.com/title/${imdb_id}`;
         let imagePath = `http://image.tmdb.org/t/p/w500//${poster_path}`;
         return (
-            <Main className="content">
-                <h1>{original_title}</h1>
-                <img src={imagePath} />
-                <h3>{tagline}</h3>
-                <Summary>
-                    Summary: {overview} <br /> <a href={imdb_path}>IMDB</a>
-                </Summary>
-                <h3>Released: {release_date}</h3>
-            </Main>
+            <Container>
+                <Main className="content">
+                    <h1>{original_title}</h1>
+                    <img src={imagePath} alt={imdb_id} />
+                    <h3>{tagline}</h3>
+                    <Summary>
+                        Summary: {overview} <br /> <a href={imdb_path}>IMDB</a>
+                    </Summary>
+                    <h3>Released: {release_date}</h3>
+                </Main>
+                <Same changeMovie={this.changeMovie.bind(this)} />
+            </Container>
         );
     }
 }
@@ -91,11 +98,14 @@ const Main = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: relative;
-    top: 10vh;
 `;
 
 const Summary = styled.p`
     width: 50%;
     text-align: center;
+`;
+
+const Container = styled.div`
+    position: relative;
+    top: 10vh;
 `;
