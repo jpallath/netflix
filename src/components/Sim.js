@@ -28,6 +28,9 @@ const Sima = styled.div`
     margin: 0 10px;
     justify-content: center;
     align-items: center;
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
 export default Sim;
