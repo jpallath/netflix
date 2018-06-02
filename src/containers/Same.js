@@ -52,6 +52,9 @@ const Sime = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    @media (max-width: 768px) {
+        flex-wrap: nowrap;
+    }
 `;
 
 function mapStateToProps(reduxState) {

@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 const DropDownContent = styled.div`
     opacity: 1;
+    position: relative;
+    right: 42px;
 `;
 
 const DropDownContentHidden = styled.div`
@@ -11,6 +13,10 @@ const DropDownContentHidden = styled.div`
 
 const DropDownSpan = styled.span`
     color: #00d1b2;
+`;
+
+const DropDownItem = styled.a`
+    font-size: 10px;
 `;
 
 class DropDownMenu extends Component {
@@ -30,13 +36,13 @@ class DropDownMenu extends Component {
     };
     render() {
         let popMovieList = this.props.popMovies.map(mov => (
-            <a
+            <DropDownItem
                 key={mov.id}
                 className="dropdown-item"
                 onClick={() => this.clickedMovie(mov.id)}
             >
                 {mov.original_title}
-            </a>
+            </DropDownItem>
         ));
         return (
             <div className="dropdown is-active">

@@ -15,7 +15,7 @@ class Sim extends Component {
         return (
             <Sima onClick={() => this.clickedMovie(id)}>
                 <div>{original_title}</div>
-                <img src={imagePath} />
+                <img src={imagePath} alt={original_title} />
             </Sima>
         );
     }
@@ -28,8 +28,11 @@ const Sima = styled.div`
     margin: 0 10px;
     justify-content: center;
     align-items: center;
+    transition: all 0.5s ease-in;
+    padding-bottom: 2vh;
     &:hover {
         cursor: pointer;
+        transform: scale(1.2);
     }
 `;
 
