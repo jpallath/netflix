@@ -18,11 +18,15 @@ class MainMovie extends Component {
         };
         this.getMovieDetails = this.getMovieDetails.bind(this);
         this.changeMovie = this.changeMovie.bind(this);
+        this.hydrateStateWithLocalStorage = this.hydrateStateWithLocalStorage.bind(
+            this
+        );
     }
 
     componentDidMount() {
         this.getMovieDetails(this.props.movieId);
         this.setState({ movieId: this.props.movieId });
+        this.hydrateStateWithLocalStorage();
     }
 
     changeMovie = id => {
@@ -46,7 +50,15 @@ class MainMovie extends Component {
             release_date: release_date,
             tagline: tagline
         });
+        localStorage.setItem("movieId", id);
     };
+
+    hydrateStateWithLocalStorage() {
+        if (localStorage.getItem("movieId")) {
+            let id = localStorage.getItem("movieId");
+            this.changeMovie(id);
+        }
+    }
 
     componentDidUpdate() {
         if (this.state.movieId !== this.props.movieId) {
