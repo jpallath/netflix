@@ -52,7 +52,7 @@ class DropDownMenu extends Component {
                         aria-haspopup="true"
                         aria-controls="dropdown-menu"
                     >
-                        <DropDownSpan>Dropdown button</DropDownSpan>
+                        <DropDownSpan>Popular Movies</DropDownSpan>
                         <span className="icon is-small">
                             <i
                                 className="fa fa-angle-down"
